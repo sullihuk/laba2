@@ -11,9 +11,9 @@ public class rand
 	static String catN = "Cat";
 
 	
-	public static double result(int t)
+	public static float result(int t)
 	{
-		double a = (double) (Math.random()*t);
+		float a = (float) (Math.random()*t);
 		return a;
 	}
 
