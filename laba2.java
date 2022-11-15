@@ -6,53 +6,71 @@ import java.io.RandomAccessFile;
 interface Animal
 {
 
-	void randomaizer(int factor);
-	void animalsList (int number, String name);// float weight, float age, float quntityFodder);
-	void counterFodder (float weigth, float age);	
+	void randomaizer();
+	void animalsNum (); 
+	void counterFodder ();	
 
 }
 
 class Dog implements Animal
 {
-	float ageDog;
-	float weightDog;
-	float quantityFodder;
+	double ageDog;
+	double weightDog;
+	double quantityFodder;
 	int weightFactor = 110;
 	int ageFactor = 17;
 	String dogN = "Dog";
-	ArrayList<Object> animalsList;
+	ArrayList<Object> animalsList = new ArrayList<Object>();
+	int [] arr = {10, 20, 40};
+	
 
 	@Override
-	public void randomizer(weightFactor)
+	public void randomaizer()
 	{
 		weightDog = (Math.random()*weightFactor);
-	}
-
-	@Override
-	public void randomizer(ageFactor)
-	{
 		ageDog = (Math.random()*ageFactor);
 	}
 
+
 	@Override
-	public void ArrayList<Object> animalsList(int number, String name)
+	public void animalsNum()
 	{ 	
-		ArrayList<Object> animalsList = new ArrayList<Object>();
-		animalsList.add(dogN+number); 
+		animalsList.add(dogN); 
 		animalsList.add(ageDog);
 		animalsList.add(weightDog);
 		animalsList.add(quantityFodder);
 	}
 
 	@Override
-	public void counterFodder(ageDog, weigthDog)
+	public void counterFodder()
 	{
-
-		quntityFodder = 
+		 quantityFodder = ageDog <= 0.5 ? weightDog*0.07 : weightDog*0.035;  
 	}
 
 
 
+}
+
+class SearchInfo
+{
+	Dog dog = new Dog();
+	public void printInfo ()
+	{
+		System.out.println("Info about dog: "+dog.arr);
+	
+	}
+}
+
+class laba2
+{
+	public static void main(String[] args)
+	{
+		Dog dog = new Dog();
+		SearchInfo info = new SearchInfo();
+			
+		info.printInfo();
+		
+	}
 }
 
 /*class Cat implements Animal  
