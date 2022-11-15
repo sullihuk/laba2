@@ -6,9 +6,8 @@ import java.io.RandomAccessFile;
 interface Animal
 {
 
-	void randomaizer();
 	void animalsNum (); 
-	void counterFodder ();	
+	void printer ();
 
 }
 
@@ -21,34 +20,27 @@ class Dog implements Animal
 	int ageFactor = 17;
 	String dogN = "Dog";
 	ArrayList<Object> animalsList = new ArrayList<Object>();
-	int [] arr = {10, 20, 40};
-	
-
-	@Override
-	public void randomaizer()
-	{
-		weightDog = (Math.random()*weightFactor);
-		ageDog = (Math.random()*ageFactor);
-	}
-
 
 	@Override
 	public void animalsNum()
 	{ 	
+		weightDog = (Math.random()*weightFactor);
+		ageDog = (Math.random()*ageFactor);
+
+		quantityFodder = ageDog <= 0.5 ? weightDog*0.07 : weightDog*0.035;  
+
 		animalsList.add(dogN); 
 		animalsList.add(ageDog);
 		animalsList.add(weightDog);
 		animalsList.add(quantityFodder);
+	
 	}
 
-	@Override
-	public void counterFodder()
+	public void printer()
 	{
-		 quantityFodder = ageDog <= 0.5 ? weightDog*0.07 : weightDog*0.035;  
+
+		System.out.println(ageDog);
 	}
-
-
-
 }
 
 class SearchInfo
@@ -56,7 +48,7 @@ class SearchInfo
 	Dog dog = new Dog();
 	public void printInfo ()
 	{
-		System.out.println("Info about dog: "+dog.arr);
+		System.out.println("Info about dog: "+dog.animalsList);
 	
 	}
 }
@@ -69,7 +61,7 @@ class laba2
 		SearchInfo info = new SearchInfo();
 			
 		info.printInfo();
-		
+		dog.printer();
 	}
 }
 
