@@ -5,7 +5,7 @@ import java.io.RandomAccessFile;
 
 interface Animal
 {
-	void animalsNum(); 
+	void animalsNum(int number); 
 	void printer(double age);
 	void fodderCounter(double age, double weight);
 	void randomizer(int ageFactor, int weightFactor);
@@ -19,6 +19,7 @@ class Dog implements Animal
 	int weightFactor = 110;
 	int ageFactor = 17;
 	String dogN = "Dog";
+	int number;
 
 	ArrayList<Object> animalsList = new ArrayList<Object>();
 
@@ -36,11 +37,12 @@ class Dog implements Animal
 	}
 
 	@Override
-	public void animalsNum()
+	public void animalsNum(int number)
 	{ 	
-		animalsList.add(dogN); 
+		animalsList.add(dogN+number); 
 		animalsList.add(age);
 		animalsList.add(weight);
+		animalsList.add(quantityFodder);
 	}
 
 	public void printer(double ageDog)
@@ -62,11 +64,15 @@ class laba2
 {
 	public static void main(String[] args)
 	{
-		Dog dog = new Dog();
-		dog.randomizer(dog.ageFactor, dog.weightFactor);
-		dog.animalsNum();
-		SearchInfo info = new SearchInfo();
-		info.printInfo(dog.animalsList);
+		for (int i=1; i<=100; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
+		{
+			Dog dog = new Dog();
+			dog.randomizer(dog.ageFactor, dog.weightFactor);
+			dog.fodderCounter(dog.age, dog.weight);
+			dog.animalsNum(dog.number=i); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
+			SearchInfo info = new SearchInfo();
+			info.printInfo(dog.animalsList); 
+		}
 	}
 }
 
