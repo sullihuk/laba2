@@ -2,6 +2,10 @@ import java.lang.Math;
 import java.util.*;
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 interface Animal
 {
@@ -9,6 +13,7 @@ interface Animal
 	void printer(double age);
 	void fodderCounter(double age, double weight);
 	void randomizer(int ageFactor, int weightFactor);
+	
 }
 
 class Dog implements Animal
@@ -18,8 +23,9 @@ class Dog implements Animal
 	double quantityFodder;
 	int weightFactor = 110;
 	int ageFactor = 17;
-	String dogN = "Dog";
+	String dogN = "Dog_";
 	int number;
+	double[] portionsFodder = new double[100];
 
 	ArrayList<Object> animalsList = new ArrayList<Object>();
 
@@ -43,6 +49,7 @@ class Dog implements Animal
 		animalsList.add(age);
 		animalsList.add(weight);
 		animalsList.add(quantityFodder);
+		portionsFodder.add
 	}
 
 	public void printer(double ageDog)
@@ -80,6 +87,6 @@ class laba2
 {
 	int weightFactor = 20;
 	int ageFactor = 18;
-	String catN = "Cat";
+	String catN = "Cat_";
 
 }*/
