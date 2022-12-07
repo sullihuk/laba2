@@ -82,6 +82,13 @@ class laba2
 			info.printInfo(dog.animalsList); 
 			portionsFodder[i-1] = dog.quantityFodder;
 		}
+		double maxPortion = portionsFodder[0];
+
+		for (int i=1; i<portionsFodder.length; i++)
+		{
+			if(portionsFodder[i] > maxPortion) maxPortion = portionsFodder[i];
+		}
+
 		for(int i=0; i<portionsFodder.length; i++)
 		{
 			System.out.println(portionsFodder[i]);
