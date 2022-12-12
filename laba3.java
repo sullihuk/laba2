@@ -71,24 +71,27 @@ class SearchInfo
 	double maxPortion = portionsFodder[0];
 	double minPortion = portionsFodder[0];
 	double averagePortion = 0;
-	double total = 0;
+	double total;
 
-	for (int i=1; i < portionsFodder.length; i++)
+	public void computatitonPortion()
 	{
-		if(portionsFodder[i] > maxPortion) 
-			maxPortion = portionsFodder[i];
+		for (int i=1; i < portionsFodder.length; i++)
+		{
+			if(portionsFodder[i] > maxPortion) 
+				maxPortion = portionsFodder[i];
 
-		if(portionsFodder[i] < minPortion) 
-			minPortion = portionsFodder[i];
-		total += portionFodder[0];
-		averagePortion = total/portionsFodder.length;
+			if(portionsFodder[i] < minPortion) 
+				minPortion = portionsFodder[i];
+			total += portionsFodder[0];
+			averagePortion = total/portionsFodder.length;
+		}
 	}
 
 
 
 	public void printInfo (ArrayList info)
 	{
-		//System.out.println("Info about dog: "+info);
+		System.out.println("Info about dog: "+info);
 	
 	}
 }
@@ -98,29 +101,30 @@ class laba2
 	public static void main(String[] args)
 	{
 		SearchInfo info = new SearchInfo();
-		for (int i=1; i<=100; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
+
+		for (int i=0; i<info.portionsFodder.length; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
 		{
 			Dog dog = new Dog();
 			dog.randomizer(dog.ageFactor, dog.weightFactor);
 			dog.fodderCounter(dog.age, dog.weight);
-			dog.animalsNum(dog.number=i); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
-			info.portionsFodder[i-1] = dog.quantityFodder;
-		}
-
-		for(int i=0; i<portionsFodder.length; i++)
-		{
+			dog.animalsNum(dog.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
+			info.portionsFodder[i] = dog.quantityFodder;
 			System.out.println(info.portionsFodder[i]);
+		//	info.printInfo(dog.animalsList); 
 		}
 
-	//	info.printInfo(dog.animalsList); 
 
 
-		if (info.scannerEnter = "m") 
+
+		info.computatitonPortion();
+		char havingEntered = info.scannerEnter();
+
+		if ( havingEntered == 'm') 
 			System.out.println("The biggest portion is: " +info.maxPortion);
-		else if (info.scannerEnter = "n")
-			System.out.println("The smallest portion is: " +SearchInfo.minPortion);
-		else if (info.scannerEnter = "a")
-			System.out.println("The average portion is: " +SearchInfo.averagePortion);
+		else if (havingEntered == 'n')
+			System.out.println("The smallest portion is: " +info.minPortion);
+		else if (havingEntered == 'a')
+			System.out.println("The average portion is: " +info.averagePortion);
 	}
 }
 
