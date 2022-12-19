@@ -75,16 +75,20 @@ class SearchInfo
 
 	public void computatitonPortion()
 	{
-		for (int i=1; i < portionsFodder.length; i++)
+		for (int i=0; i < portionsFodder.length; i++)
 		{
-			if(portionsFodder[i] > maxPortion) 
+			/*if(portionsFodder[i] > maxPortion) 
 				maxPortion = portionsFodder[i];
 
 			if(portionsFodder[i] < minPortion) 
-				minPortion = portionsFodder[i];
-			total += portionsFodder[0];
-			averagePortion = total/portionsFodder.length;
+				minPortion = portionsFodder[i];*/
+
+			total += portionsFodder[i];
 		}
+			averagePortion = total/portionsFodder.length;
+			java.util.Arrays.sort(portionsFodder);	
+			maxPortion = portionsFodder[portionsFodder.length-1];
+			minPortion = portionsFodder[0];
 	}
 
 
@@ -93,6 +97,11 @@ class SearchInfo
 	{
 		System.out.println("Info about dog: "+info);
 	
+	}
+
+	public void printInteract()
+	{
+		System.out.println(" To see maximum portion press (m).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see minimum portion press (n).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see avrage portion press (a).\n");
 	}
 }
 
@@ -106,17 +115,18 @@ class laba2
 		{
 			Dog dog = new Dog();
 			dog.randomizer(dog.ageFactor, dog.weightFactor);
-			dog.fodderCounter(dog.age, dog.weight);
+			dog.fodderCounter(dog.age, dog.weight); // Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
 			dog.animalsNum(dog.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
-			info.portionsFodder[i] = dog.quantityFodder;
-			System.out.println(info.portionsFodder[i]);
-		//	info.printInfo(dog.animalsList); 
+			info.portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
+			//System.out.println(info.portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
+			//info.printInfo(dog.animalsList); 
 		}
 
-
-
-
 		info.computatitonPortion();
+		System.out.println("Total having gobbled up for period of time: "+ info.total+"\n");
+		info.printInteract();
+
+
 		char havingEntered = info.scannerEnter();
 
 		if ( havingEntered == 'm') 
@@ -125,6 +135,8 @@ class laba2
 			System.out.println("The smallest portion is: " +info.minPortion);
 		else if (havingEntered == 'a')
 			System.out.println("The average portion is: " +info.averagePortion);
+
+		
 	}
 }
 
