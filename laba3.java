@@ -23,7 +23,7 @@ class Dog implements Animal
 	double quantityFodder;
 	int weightFactor = 110;
 	int ageFactor = 17;
-	String dogN = "Dog_";
+	String name = "Dog_";
 	int number;
 
 	ArrayList<Object> animalsList = new ArrayList<Object>();
@@ -44,7 +44,7 @@ class Dog implements Animal
 	@Override
 	public void animalsNum(int number)
 	{ 	
-		animalsList.add(dogN+number); 
+		animalsList.add(name+number); 
 		animalsList.add(age);
 		animalsList.add(weight);
 		animalsList.add(quantityFodder);
@@ -54,6 +54,20 @@ class Dog implements Animal
 	{
 		System.out.println(ageDog);
 	}
+}
+
+class Cat extends Dog implements Animal  
+{
+	int weightFactor = 20;
+	int ageFactor = 18;
+	String name = "Cat_";
+
+	@Override
+	public void fodderCounter(double age, double weight)
+	{
+		quantityFodder = age <= 1 ? weight*0.017 : weight*0.011;  
+	}
+
 }
 
 class SearchInfo
@@ -73,11 +87,20 @@ class SearchInfo
 	double averagePortion = 0;
 	double total;
 
-	public void computatitonPortion()
+	public void computatitonPortion(instanceName, animalRandomizer, )
 	{
 		for (int i=0; i < portionsFodder.length; i++)
 		{
-			/*if(portionsFodder[i] > maxPortion) 
+		
+			Dog dog = new Dog();
+			dog.randomizer(dog.ageFactor, dog.weightFactor);
+			dog.fodderCounter(dog.age, dog.weight); // Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
+			dog.animalsNum(dog.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
+			info.portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
+			//System.out.println(info.portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
+			//info.printInfo(dog.animalsList); 
+		
+/*if(portionsFodder[i] > maxPortion) 
 				maxPortion = portionsFodder[i];
 
 			if(portionsFodder[i] < minPortion) 
@@ -96,7 +119,6 @@ class SearchInfo
 	public void printInfo (ArrayList info)
 	{
 		System.out.println("Info about dog: "+info);
-	
 	}
 
 	public void printInteract()
@@ -140,10 +162,4 @@ class laba2
 	}
 }
 
-/*class Cat implements Animal  
-{
-	int weightFactor = 20;
-	int ageFactor = 18;
-	String catN = "Cat_";
 
-}*/
