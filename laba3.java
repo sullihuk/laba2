@@ -12,8 +12,13 @@ interface Animal
 	void animalsNum(int number); 
 	void printer(double age);
 	void fodderCounter(double age, double weight);
-	void randomizer(int ageFactor, int weightFactor);
-	
+	//void randomizer(int ageFactor, int weightFactor);
+	default void randomizer(double age ,double weight, int ageFactor, int weightFactor)
+	{
+		weight = (Math.random()*weightFactor);
+		age = (Math.random()*ageFactor);
+	}
+
 }
 
 class Dog implements Animal
@@ -34,12 +39,12 @@ class Dog implements Animal
 		quantityFodder = age <= 0.5 ? weight*0.07 : weight*0.035;  
 	}
 
-	@Override
+/*	@Override
 	public void randomizer(int ageFactor, int weightFactor)
 	{
 		weight = (Math.random()*weightFactor);
 		age = (Math.random()*ageFactor);
-	}
+	}*/
 
 	@Override
 	public void animalsNum(int number)
@@ -50,9 +55,9 @@ class Dog implements Animal
 		animalsList.add(quantityFodder);
 	}
 
-	public void printer(double ageDog)
+	public void printer(double age)
 	{
-		System.out.println(ageDog);
+		System.out.println(age);
 	}
 }
 
@@ -87,16 +92,16 @@ class SearchInfo
 	double averagePortion = 0;
 	double total;
 
-	public void computatitonPortion(instanceName, animalRandomizer, )
+	public void computatitonPortion (obj instanceName, int ageFactor, int weightFactor, double age, double weight, int number, double quantityFodder)
 	{
 		for (int i=0; i < portionsFodder.length; i++)
 		{
 		
-			Dog dog = new Dog();
-			dog.randomizer(dog.ageFactor, dog.weightFactor);
-			dog.fodderCounter(dog.age, dog.weight); // Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
-			dog.animalsNum(dog.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
-			info.portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
+			obj instanceName; //Dog dog = new Dog();
+			randomizer(ageFactor, weightFactor);
+			fodderCounter(age, weight); // Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
+			animalsNum(number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
+			info.portionsFodder[i] = quantityFodder; // Наполняет массив данными о порциях собак.
 			//System.out.println(info.portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
 			//info.printInfo(dog.animalsList); 
 		
@@ -133,7 +138,7 @@ class laba2
 	{
 		SearchInfo info = new SearchInfo();
 
-		for (int i=0; i<info.portionsFodder.length; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
+		/*for (int i=0; i<info.portionsFodder.length; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
 		{
 			Dog dog = new Dog();
 			dog.randomizer(dog.ageFactor, dog.weightFactor);
@@ -142,7 +147,7 @@ class laba2
 			info.portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
 			//System.out.println(info.portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
 			//info.printInfo(dog.animalsList); 
-		}
+		} */
 
 		info.computatitonPortion();
 		System.out.println("Total having gobbled up for period of time: "+ info.total+"\n");
