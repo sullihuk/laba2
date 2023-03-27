@@ -10,19 +10,20 @@ import java.io.InputStreamReader;
 interface Animal // Инициализация интерфейса 
 {
 
-	void animalsNum(int number);// Инициализация  
+	void animalsNum(int number);
 	void printer(double age);
-  void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight)
-	default void randomizer(double age ,double weight, int ageFactor, int weightFactor)
+  void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight);
+/*	default void randomizer(double age ,double weight, int ageFactor, int weightFactor)
     {
       weight = (Math.random()*weightFactor);
       age = (Math.random()*ageFactor);
-    }
+    }*/
 
  }
 
 class Dog implements Animal
 {
+  double quantityFodder;
   double puppyKittyFactor = 0.5;
   double puppyKittyPortionFactor = 0.07;
   double adultPortionFactor = 0.035;
@@ -33,20 +34,20 @@ class Dog implements Animal
 	String name = "Dog_";
 	int number;
 
-	ArrayList<Object> animalsList = new ArrayList<Object>();// Объявление массива содержащего информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
+	ArrayList<Object> animalsList = new ArrayList<Object>();// Объявление массива, который будет содержать информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
 
 	@Override
-  public void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight)//Метод расчитывает количество корма для животного этого класса
+  public void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight)//Метод расчитывает количество корма для животного 
     {
       quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor;  
     }
 
-/*	@Override
+	//@Override
 	public void randomizer(int ageFactor, int weightFactor)
 	{
 		weight = (Math.random()*weightFactor);
 		age = (Math.random()*ageFactor);
-	}*/
+	}
 
 	@Override
 	public void animalsNum(int number)// Метод заполняет массив данными о животине.
@@ -75,15 +76,15 @@ class Cat extends Dog implements Animal
 
 }
 
-/*class SearchInfo
+class SearchInfo
 {
-	double maxPortion = portionsFodder[0];
-	double minPortion = portionsFodder[0];
 	double averagePortion = 0;
 	double total;
-
 	double[] portionsFodder = new double[100];
 
+	double maxPortion = portionsFodder[0];
+	double minPortion = portionsFodder[0];
+  
 	public char scannerEnter()
 	{
 		Scanner input = new Scanner(System.in);
@@ -96,15 +97,13 @@ class Cat extends Dog implements Animal
 		for (int i=0; i < portionsFodder.length; i++)
 		{
 		
-			//obj instanceName; 
 			Dog dog = new Dog();
-			randomizer(ageFactor, weightFactor);
 			
-			fodderCounter(age, weight); // Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
-			animalsNum(number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
-			info.portionsFodder[i] = quantityFodder; // Наполняет массив данными о порциях собак.
-			System.out.println(info.portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
-			info.printInfo(dog.animalsList); 
+			dog.fodderCounter(dog.puppyKittyPortionFactor, dog.puppyKittyFactor, dog.adultPortionFactor, dog.age, dog.weight);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
+			dog.animalsNum(dog.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
+			portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
+			System.out.println(portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
+			//info.printInfo(dog.animalsList); 
 		
 			if(portionsFodder[i] > maxPortion) 
 				maxPortion = portionsFodder[i];
@@ -120,8 +119,6 @@ class Cat extends Dog implements Animal
 			minPortion = portionsFodder[0];
 	}	
 
-
-
 	public void printInfo (ArrayList info)
 	{
 		System.out.println("Info about dog: "+info);
@@ -131,14 +128,15 @@ class Cat extends Dog implements Animal
 	{
 		System.out.println(" To see maximum portion press (m).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see minimum portion press (n).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see avrage portion press (a).\n");
 	}
-}*/
+}
 
 class laba2
 {
 	public static void main(String[] args)
 	{
-		//SearchInfo info = new SearchInfo();
+		SearchInfo info = new SearchInfo();
 
+    info.computationPortions
 		/*for (int i=0; i<info.portionsFodder.length; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
 		{
 			Dog dog = new Dog();
