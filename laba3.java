@@ -1,62 +1,45 @@
 import java.lang.Math;
 import java.util.*;
-import java.io.File;
-import java.io.RandomAccessFile;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 
 interface Animal // Инициализация интерфейса 
 {
-
-	void animalsNum(int number);
 	void printer(double age);
-  void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight);
-/*	default void randomizer(double age ,double weight, int ageFactor, int weightFactor)
-    {
-      weight = (Math.random()*weightFactor);
-      age = (Math.random()*ageFactor);
-    }*/
-
+  void fodderCounter(int number);
  }
 
 class Dog implements Animal
 {
-  double quantityFodder;
-  double puppyKittyFactor = 0.5;
-  double puppyKittyPortionFactor = 0.07;
-  double adultPortionFactor = 0.035;
-	double age;
-	double weight;
-	int weightFactor = 110;
-	int ageFactor = 17;
-	String name = "Dog_";
-	int number;
+  double quantityFodder; //Инициализация переменной количества корма
+  double puppyKittyFactor = 0.5; // Инициализация и присвоение значения переменной коэффициента возраста щенка
+  double puppyKittyPortionFactor = 0.07; // Инциализация и присвоение значения переменной коэффициента порции для щенка
+  double adultPortionFactor = 0.035;// Инциализация и присвоение значения переменной коэффициента порции для взрослого собакентия
+
+	double age;// инициализация переменной возраста животного
+	double weight;// Инициализация переменной веса животного
+	int weightFactor = 110;// Максимальная масса собаки справочное значение
+	int ageFactor = 17; // Максимальный возраст собаки 
+	String name = "Dog_";// Шаблон клички животного
+	int number;// Переменная номер для клички животных
 
 	ArrayList<Object> animalsList = new ArrayList<Object>();// Объявление массива, который будет содержать информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
 
 	@Override
-  public void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight)//Метод расчитывает количество корма для животного 
+  public void fodderCounter(int number)//Метод расчитывает количество корма для животного 
     {
-      quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor;  
+      weight = (Math.random()*weightFactor);// Генерирование случайного веса животного
+      age = (Math.random()*ageFactor);// Генерирование случайного возраста животного
+
+      quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor; // Тернарный оператор для расчета количества корма для щенка/котенка или взрослой особи 
+                                    
+                                    // Добавление в массив информации о животном:
+      animalsList.add(name+number); // шаблон имени и номер;     
+      animalsList.add(age); // возраст;
+      animalsList.add(weight); // вес\масса;
+      animalsList.add(quantityFodder); // расчитанное, согласно данным, количество корма
     }
-
-	//@Override
-	public void randomizer(int ageFactor, int weightFactor)
-	{
-		weight = (Math.random()*weightFactor);
-		age = (Math.random()*ageFactor);
-	}
-
-	@Override
-	public void animalsNum(int number)// Метод заполняет массив данными о животине.
-	{ 	
-		animalsList.add(name+number); 
-		animalsList.add(age);
-		animalsList.add(weight);
-		animalsList.add(quantityFodder);
-	}
 
 	public void printer(double age)
 	{
@@ -66,13 +49,12 @@ class Dog implements Animal
 
 class Cat extends Dog implements Animal  
 {
-  double puppyKittyFactor = 1;
-  double puppyKittyPortionFactor = 0.017;
-  double adultPortionFactor = 0.011;
-	int weightFactor = 20;
-	int ageFactor = 18;
-	String name = "Cat_";
-
+  double puppyKittyFactor = 1;// Инциализация и присвоение значения переменной коэффициента возраста котенка
+  double puppyKittyPortionFactor = 0.017;// Инциализация и присвоение значения переменной коэффициента порции для котенка
+  double adultPortionFactor = 0.011;// Инциализация и присвоение значения переменной коэффициента порции для взрослого кошкэ
+	int weightFactor = 20; // Назначение максимального вeca для кошкэ, справочное значение
+	int ageFactor = 18; // Назначение максимального возраста для кошкэ 
+	String name = "Cat_";//Шаблон для клички кошкэ
 
 }
 
@@ -80,10 +62,10 @@ class SearchInfo
 {
 	double averagePortion = 0;
 	double total;
-	double[] portionsFodder = new double[100];
+	//double[] portionsFodder = new double[100];
 
-	double maxPortion = portionsFodder[0];
-	double minPortion = portionsFodder[0];
+	double maxPortion;// = portionsFodder[0];
+	double minPortion;// = portionsFodder[0];
   
 	public char scannerEnter()
 	{
@@ -92,18 +74,15 @@ class SearchInfo
 		return oneOfthree;
 	}
 
-	public void computatitonPortion (int ageFactor, int weightFactor, double age, double weight, int number, double quantityFodder)
+	public void computationPortion ()
 	{
 		for (int i=0; i < portionsFodder.length; i++)
 		{
 		
 			Dog dog = new Dog();
-			
-			dog.fodderCounter(dog.puppyKittyPortionFactor, dog.puppyKittyFactor, dog.adultPortionFactor, dog.age, dog.weight);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
-			dog.animalsNum(dog.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
-			portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
-			System.out.println(portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
-			//info.printInfo(dog.animalsList); 
+			//dog.fodderCounter(dog.number=i+1);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
+			//portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
+      //dog.animalsList.add(portionsFodder[i]);
 		
 			if(portionsFodder[i] > maxPortion) 
 				maxPortion = portionsFodder[i];
@@ -111,6 +90,7 @@ class SearchInfo
 			if(portionsFodder[i] < minPortion) 
 				minPortion = portionsFodder[i];
 
+			System.out.println(portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех собак построчно.
 			total += portionsFodder[i];
 		}
 			averagePortion = total/portionsFodder.length;
@@ -135,8 +115,8 @@ class laba2
 	public static void main(String[] args)
 	{
 		SearchInfo info = new SearchInfo();
-
-    info.computationPortions
+    info.computationPortion(); 
+    info.printInfo(info.portionsFodder);
 		/*for (int i=0; i<info.portionsFodder.length; i++) // Создание группы экземпляров класса Dog, по условию задачи. Сто штук собакенов.
 		{
 			Dog dog = new Dog();
