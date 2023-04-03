@@ -5,14 +5,8 @@ import java.util.*;
 interface Animal // Инициализация интерфейса 
 {
 
-	void animalsNum(int number);
-	void printer(double age);
-  void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight);
-/*	default void randomizer(double age ,double weight, int ageFactor, int weightFactor)
-    {
-      weight = (Math.random()*weightFactor);
-      age = (Math.random()*ageFactor);
-    }*/
+	void printer(int number);
+  void fodderCounter();
 
  }
 
@@ -27,25 +21,22 @@ class Dog implements Animal
 	int weightFactor = 110;
 	int ageFactor = 17;
 	String name = "Dog_";
-	int number;
+	int number = 1;
 
 	ArrayList<Object> animalsList = new ArrayList<Object>();// Объявление массива, который будет содержать информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
 
-	@Override
-  public void fodderCounter(double puppyKittyPortionFactor, double puppyKittyFactor, double adultPortionFactor, double age, double weight)//Метод расчитывает количество корма для животного 
-    {
-      quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor;  
-    }
-
-	//@Override
-	public void randomizer(int ageFactor, int weightFactor)
+  public void randomizer(int ageFactor, int weightFactor)
 	{
 		weight = (Math.random()*weightFactor);
 		age = (Math.random()*ageFactor);
 	}
 
-	@Override
-	public void animalsNum(int number)// Метод заполняет массив данными о животине.
+  public void fodderCounter()//Метод расчитывает количество корма для животного. Не совсем в соответсвии с заданием т.к. нет принимаемых параметров
+    {
+      quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor;  
+    }
+
+	public void animalsNum()// Метод заполняет массив данными о животине.
 	{ 	
 		animalsList.add(name+number); 
 		animalsList.add(age);
@@ -53,9 +44,12 @@ class Dog implements Animal
 		animalsList.add(quantityFodder);
 	}
 
-	public void printer(double age)
+	public void printer(int number)
 	{
-		System.out.println(age);
+    for(int i = 0; i < animalsList.size(); i++)
+    {
+		System.out.print(animalsList.get(i) + " ");
+    }
 	}
 }
 
@@ -86,17 +80,12 @@ class SearchInfo
 		return oneOfthree;
 	}
 
-	public void computationPortion (obj obj)
+	public void computationPortion ()
 	{
 		for (int i=0; i < portionsFodder.length; i++)
 		{
 		
-	    obj.randomizer(obj.ageFactor, obj.weightFactor);
-			obj.fodderCounter(obj.puppyKittyPortionFactor, obj.puppyKittyFactor, obj.adultPortionFactor, obj.age, obj.weight);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
-			obj.animalsNum(obj.number=i+1); // Удивительно, но это работает, правда непонятно как)) Присваивает каждому собакентию номер.
-			portionsFodder[i] = obj.quantityFodder; // Наполняет массив данными о порциях собак.
-			System.out.println(portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех животных построчно.
-			//info.printInfo(dog.animalsList); 
+			//System.out.println(portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех животных построчно.
 		
 			if(portionsFodder[i] > maxPortion) 
 				maxPortion = portionsFodder[i];
@@ -124,19 +113,15 @@ class SearchInfo
 }
 
 
-
 class laba2
 {
 	public static void main(String[] args)
 	{
+    Dog dog = new Dog();
+    dog.randomizer(dog.ageFactor, dog.weightFactor);
+    dog.fodderCounter();
+    dog.animalsNum();
+    dog.printer(10);
 
 	}
 }
-
-/*class Cat implements Animal  
-{
-	int weightFactor = 20;
-	int ageFactor = 18;
-	String catN = "Cat";
-
-}*/

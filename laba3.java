@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 interface Animal // Инициализация интерфейса 
 {
-	void printer(double age);
+	void printer();
   void fodderCounter(int number);
  }
 
@@ -22,7 +22,7 @@ class Dog implements Animal
 	int weightFactor = 110;// Максимальная масса собаки справочное значение
 	int ageFactor = 17; // Максимальный возраст собаки 
 	String name = "Dog_";// Шаблон клички животного
-	int number;// Переменная номер для клички животных
+	int number=1;// Переменная номер для клички животных
 
 	ArrayList<Object> animalsList = new ArrayList<Object>();// Объявление массива, который будет содержать информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
 
@@ -35,7 +35,7 @@ class Dog implements Animal
       quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor; // Тернарный оператор для расчета количества корма для щенка/котенка или взрослой особи 
                                     
                                     // Добавление в массив информации о животном:
-      animalsList.add(name); // шаблон имени и номер;     
+      animalsList.add(name+number); // шаблон имени и номер;     
       animalsList.add(age); // возраст;
       animalsList.add(weight); // вес\масса;
       animalsList.add(quantityFodder); // расчитанное, согласно данным, количество корма
@@ -43,11 +43,11 @@ class Dog implements Animal
 
 	public void printer()
 	{
-    for (int i = 0; i < animalList.length; i++) {
-     if (i == 0)
-       System.out.println(animalsList[i]i+1);
-		System.out.println(animalsList[i]);
-	}
+    for (int i = 0; i < animalsList.size(); i++) {
+       System.out.println(animalsList.get(i)+ i+1 );
+		System.out.println(animalsList.get(i));
+    }
+  }
 }
 
 class Cat extends Dog implements Animal  
@@ -65,7 +65,7 @@ class SearchInfo
 {
 	double averagePortion = 0;
 	double total;
-	double[][] portionsFodder = new double[100][];
+	double[] portionsFodder = new double[100];
 
 	double maxPortion;// = portionsFodder[0];
 	double minPortion;// = portionsFodder[0];
@@ -84,7 +84,7 @@ class SearchInfo
 		
 			Dog dog = new Dog();
       Cat cat = new Cat();
-      for (int j=0; j < dog.animalsList.length; j++) 
+      for (int j=0; j < dog.animalsList.size(); j++) 
       {
       }
 			//dog.fodderCounter(dog.number=i+1);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
@@ -106,7 +106,7 @@ class SearchInfo
 			minPortion = portionsFodder[0];
 	}	
 
-	public void printInfo (ArrayList info)
+	public void printInfo (double[] info)
 	{
 		System.out.println("Info about dog: "+info);
 	}
