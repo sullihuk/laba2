@@ -35,15 +35,18 @@ class Dog implements Animal
       quantityFodder = age <= puppyKittyFactor ? weight*puppyKittyPortionFactor : weight*adultPortionFactor; // Тернарный оператор для расчета количества корма для щенка/котенка или взрослой особи 
                                     
                                     // Добавление в массив информации о животном:
-      animalsList.add(name+number); // шаблон имени и номер;     
+      animalsList.add(name); // шаблон имени и номер;     
       animalsList.add(age); // возраст;
       animalsList.add(weight); // вес\масса;
       animalsList.add(quantityFodder); // расчитанное, согласно данным, количество корма
     }
 
-	public void printer(double age)
+	public void printer()
 	{
-		System.out.println(age);
+    for (int i = 0; i < animalList.length; i++) {
+     if (i == 0)
+       System.out.println(animalsList[i]i+1);
+		System.out.println(animalsList[i]);
 	}
 }
 
@@ -62,7 +65,7 @@ class SearchInfo
 {
 	double averagePortion = 0;
 	double total;
-	//double[] portionsFodder = new double[100];
+	double[][] portionsFodder = new double[100][];
 
 	double maxPortion;// = portionsFodder[0];
 	double minPortion;// = portionsFodder[0];
@@ -80,6 +83,10 @@ class SearchInfo
 		{
 		
 			Dog dog = new Dog();
+      Cat cat = new Cat();
+      for (int j=0; j < dog.animalsList.length; j++) 
+      {
+      }
 			//dog.fodderCounter(dog.number=i+1);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
 			//portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
       //dog.animalsList.add(portionsFodder[i]);
