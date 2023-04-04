@@ -45,7 +45,6 @@ class Dog implements Animal
 	{
     NumberFormat form = NumberFormat.getInstance();
 
-
     for(int i = 0; i < animalsList.size(); i++)
     {
       if (i == 0){
@@ -71,16 +70,19 @@ class Cat extends Dog implements Animal
 	int ageFactorC = 18;
 	String nameC = "Cat_";
 
-
 }
 class SearchInfo
 {
+  int rows = 100;
+  int columns  = 2;
 	double averagePortion = 0;
 	double total;
-	double[] portionsFodder = new double[100];
+	double[][] portionsFodder = new double[rows][columns];
 
-	double maxPortion = portionsFodder[0];
-	double minPortion = portionsFodder[0];
+	double maxPortionD = portionsFodder[0][0];
+	double maxPortionC = portionsFodder[0][1];
+	double minPortionD = portionsFodder[0][0];
+	double minPortionC = portionsFodder[0][1];
   
 	public char scannerEnter()
 	{
@@ -89,20 +91,41 @@ class SearchInfo
 		return oneOfthree;
 	}
 
+	public void groupOfObjects()
+	{
+    for (int i = 0; i < rows; i++) {
+   
+      Dog dog = new Dog();
+      Cat cat = new Cat();
+
+      dog.fodderCounter(dog.name, i+1, dog.weightFactorD, dog.ageFactorD, dog.puppyFactor, dog.puppyPortionFactor, dog.adultPortionFactorD);
+      cat.fodderCounter(cat.nameC, i+1, cat.weightFactorC, cat.ageFactorC, cat.kittyFactor, cat.kittyPortionFactor, cat.adultPortionFactorC);
+      dog.printer();
+      cat.printer();
+      System.out.println();
+      for(int j = 0; j < columns; j++)
+      {
+        if (j == 0)
+          portionsFodder[i][j] = dog.quantityFodder;
+        else
+          portionsFodder[i][j] = cat.quantityFodder;
+      }
+
+    }
+  }
+
 	public void computationPortion ()
 	{
-		for (int i=0; i < portionsFodder.length; i++)
+		for (int i=0; i < rows; i++)
 		{
-		
-			//System.out.println(portionsFodder[i]); //Если расскомментировать: выводит на экран порции всех животных построчно.
-		
-			if(portionsFodder[i] > maxPortion) 
-				maxPortion = portionsFodder[i];
+      for (int j = 0; j < columns; j++)
+        if(portionsFodder[i][0] > maxPortionD) 
+          maxPortionD = portionsFodder[i][0];
 
-			if(portionsFodder[i] < minPortion) 
-				minPortion = portionsFodder[i];
+        if(portionsFodder[i][0] < minPortionD) 
+          minPortionD = portionsFodder[i][0];
 
-			total += portionsFodder[i];
+        total += portionsFodder[i];
 		}
 			averagePortion = total/portionsFodder.length;
 			java.util.Arrays.sort(portionsFodder);	
@@ -126,7 +149,9 @@ class laba2
 {
 	public static void main(String[] args)
 	{
-    for (int i = 0; i < 100; i++) {
+    SearchInfo info = new SearchInfo();
+    info.groupOfObjects();
+    /*for (int i = 0; i < 100; i++) {
    
       Dog dog = new Dog();
       Cat cat = new Cat();
@@ -136,6 +161,6 @@ class laba2
       dog.printer();
       cat.printer();
       System.out.println();
-    }
+    }*/
 	}
 }
