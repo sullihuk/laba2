@@ -73,16 +73,13 @@ class Cat extends Dog implements Animal
 }
 class SearchInfo
 {
-  int rows = 100;
-  int columns  = 2;
 	double averagePortion = 0;
 	double total;
-	double[][] portionsFodder = new double[rows][columns];
+	double[] portionsFodderD = new double[100];
+	double[] portionsFodderC = new double[100];
 
-	double maxPortionD = portionsFodder[0][0];
-	double maxPortionC = portionsFodder[0][1];
-	double minPortionD = portionsFodder[0][0];
-	double minPortionC = portionsFodder[0][1];
+	double maxPortion = portionsFodderD[0];
+	double minPortion = portionsFodderD[0];
   
 	public char scannerEnter()
 	{
@@ -93,7 +90,7 @@ class SearchInfo
 
 	public void groupOfObjects()
 	{
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < portionsFodderD.length; i++) {
    
       Dog dog = new Dog();
       Cat cat = new Cat();
@@ -103,27 +100,21 @@ class SearchInfo
       dog.printer();
       cat.printer();
       System.out.println();
-      for(int j = 0; j < columns; j++)
-      {
-        if (j == 0)
-          portionsFodder[i][j] = dog.quantityFodder;
-        else
-          portionsFodder[i][j] = cat.quantityFodder;
+          portionsFodderD[i]= dog.quantityFodder;
+          portionsFodderC[i]= cat.quantityFodder;
       }
-
-    }
+    
   }
 
-	public void computationPortion ()
+	public void computationPortion(double[] portionsFodder, double valueEntered)
 	{
-		for (int i=0; i < rows; i++)
+		for (int i=0; i < portionsFodder.length; i++)
 		{
-      for (int j = 0; j < columns; j++)
-        if(portionsFodder[i][0] > maxPortionD) 
-          maxPortionD = portionsFodder[i][0];
+        if(portionsFodder[i] > maxPortion) 
+          maxPortion = portionsFodder[i];
 
-        if(portionsFodder[i][0] < minPortionD) 
-          minPortionD = portionsFodder[i][0];
+        if(portionsFodder[i] < minPortion) 
+          minPortion = portionsFodder[i];
 
         total += portionsFodder[i];
 		}
@@ -133,9 +124,12 @@ class SearchInfo
 			minPortion = portionsFodder[0];
 	}	
 
-	public void printInfo (ArrayList info)
+	public void printInfo ()
 	{
-		System.out.println("Info about dog: "+info);
+    for (int i = 0; i < portionsFodder.length; i++)
+    {
+      System.out.println("Info about dog: "+info);
+    }
 	}
 
 	public void printInteract()
