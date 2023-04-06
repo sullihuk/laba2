@@ -69,26 +69,22 @@ class Cat extends Dog implements Animal
 	int weightFactorC = 20;
 	int ageFactorC = 18;
 	String nameC = "Cat_";
-
 }
+
 class SearchInfo
 {
-	double averagePortion = 0;
-	double total;
 	double[] portionsFodderD = new double[100];
-	double[] portionsFodderC = new double[100];
-
-	double maxPortion = portionsFodderD[0];
-	double minPortion = portionsFodderD[0];
+	double maxPortionG = 0;
   
 	public char scannerEnter()
 	{
+		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
 		Scanner input = new Scanner(System.in);
 		char oneOfthree = input.next().charAt(0);
 		return oneOfthree;
 	}
 
-	public void groupOfObjects()
+	public void groupOfObjects()//        double maxPortionG   добавить как параметр
 	{
     for (int i = 0; i < portionsFodderD.length; i++) {
    
@@ -100,42 +96,26 @@ class SearchInfo
       dog.printer();
       cat.printer();
       System.out.println();
-          portionsFodderD[i]= dog.quantityFodder;
-          portionsFodderC[i]= cat.quantityFodder;
+
+          //portionsFodderD[i]= dog.quantityFodder;
+          //portionsFodderC[i]= cat.quantityFodder;
       }
     
+		  /*char havingEntered = scannerEnter();
+      if (scannerEnter() == 'c' || scannerEnter() == 'C')
+		  System.out.println(" Enter the value up to: "+ cat.weightFactorC*cat.kittyPortionFactor);
+      if (scannerEnter() == 'd' || scannerEnter() == 'D')
+		  System.out.println(" Enter the value up to: "+ dog.weightFactorD*dog.puppyPortionFactor);*/
   }
 
-	public void computationPortion(double[] portionsFodder, double valueEntered)
+	public void printInfo (double maxPortionG)
 	{
-		for (int i=0; i < portionsFodder.length; i++)
-		{
-        if(portionsFodder[i] > maxPortion) 
-          maxPortion = portionsFodder[i];
-
-        if(portionsFodder[i] < minPortion) 
-          minPortion = portionsFodder[i];
-
-        total += portionsFodder[i];
-		}
-			averagePortion = total/portionsFodder.length;
-			java.util.Arrays.sort(portionsFodder);	
-			maxPortion = portionsFodder[portionsFodder.length-1];
-			minPortion = portionsFodder[0];
-	}	
-
-	public void printInfo ()
-	{
-    for (int i = 0; i < portionsFodder.length; i++)
+    /*for (int i = 0; i < portionsFodder.length; i++)
     {
       System.out.println("Info about dog: "+info);
-    }
+    }*/
 	}
 
-	public void printInteract()
-	{
-		System.out.println(" To see maximum portion press (m).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see minimum portion press (n).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see avrage portion press (a).\n");
-	}
 }
 
 

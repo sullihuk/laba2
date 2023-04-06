@@ -79,18 +79,7 @@ class SearchInfo
 
 	public void computationPortion ()
 	{
-		for (int i=0; i < portionsFodder.length; i++)
-		{
-		
-			Dog dog = new Dog();
-      Cat cat = new Cat();
-      for (int j=0; j < dog.animalsList.size(); j++) 
-      {
-      }
-			//dog.fodderCounter(dog.number=i+1);// Вычисляет порцию каждой псины в зависимости от возраста и массы животного.
-			//portionsFodder[i] = dog.quantityFodder; // Наполняет массив данными о порциях собак.
-      //dog.animalsList.add(portionsFodder[i]);
-		
+	
 			if(portionsFodder[i] > maxPortion) 
 				maxPortion = portionsFodder[i];
 
