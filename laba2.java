@@ -73,7 +73,8 @@ class Cat extends Dog implements Animal
 
 class SearchInfo
 {
-	double[] portionsFodderD = new double[100];
+  int quantityObjects = 100;
+	double[] portionsFodderD,  portionsFodderC = new double[quantityObjects];
 	double maxPortionG = 0;
   
 	public char scannerEnter()
@@ -97,8 +98,8 @@ class SearchInfo
       cat.printer();
       System.out.println();
 
-          //portionsFodderD[i]= dog.quantityFodder;
-          //portionsFodderC[i]= cat.quantityFodder;
+      portionsFodderD[i]= dog.quantityFodder;
+      portionsFodderC[i]= cat.quantityFodder;
       }
     
 		  /*char havingEntered = scannerEnter();
