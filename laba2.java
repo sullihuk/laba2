@@ -6,7 +6,7 @@ import java.util.*;
 interface Animal // Инициализация интерфейса 
 {
 
-	void printer();
+	void printer(ArrayList list);
   void fodderCounter(String name, int number, int weightFactor, int ageFactor, double youngFactor, double  youngPortionFactor, double adultPortionFactor);
  }
 
@@ -23,7 +23,7 @@ class Dog implements Animal
 	String name = "Dog_";// Шаблон имени собакентия
 
 
-	ArrayList<Object> animalsList = new ArrayList<Object>();// Объявление массива, который будет содержать информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
+	ArrayList<Object> animalsList = new ArrayList<>();// Объявление массива, который будет содержать информацию о животных: вид животного с порядковым номером; возраст; массу; расчетное количество корма
 
   @Override
   public void fodderCounter(String name, int number, int weightFactor, int ageFactor , double youngFactor, double  youngPortionFactor, double adultPortionFactor)//Метод расчитывает количество корма для животного. Не совсем в соответсвии с заданием, т.к. принимаемых параметров больше чем по заданию, однако, они необходимы для генерации экземпляров соответствующих классов 
@@ -41,21 +41,21 @@ class Dog implements Animal
     }
 
   @Override
-	public void printer()
+	public void printer(ArrayList list)
 	{
     NumberFormat form = NumberFormat.getInstance();
 
-    for(int i = 0; i < animalsList.size(); i++)
+    for(int i = 0; i < list.size(); i++)
     {
       if (i == 0){
-        System.out.print(animalsList.get(i) + "\t");
-      } else if (i != animalsList.size()-1) {
+        System.out.print(list.get(i) + "\t");
+      } else if (i != list.size()-1) {
         form.setMaximumFractionDigits(1);
-        System.out.print(form.format(animalsList.get(i)) + "\t");
+        System.out.print(form.format(list.get(i)) + "\t");
       }
       else {
         form.setMaximumFractionDigits(3);
-        System.out.print(form.format(animalsList.get(i)) + "\t\t");
+        System.out.print(form.format(list.get(i)) + "\t\t");
       } 
     }
 	}
@@ -75,9 +75,10 @@ class SearchInfo
 {
   int quantityObjects = 100;
 	double maxPortionG = 0;
-  ArrayList[] listOfObjectsD = new ArrayList[quantityObjects];
-  ArrayList[] listOfObjectsC = new ArrayList[quantityObjects];
+  ArrayList<Object> listOfObjectsD = new ArrayList<Object>();
+  ArrayList<Object> listOfObjectsC = new ArrayList<Object>();
   
+  Dog dog = new Dog();
 	public char scannerEnter()
 	{
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
@@ -94,16 +95,19 @@ class SearchInfo
       Cat cat = new Cat();
 
       dog.fodderCounter(dog.name, i+1, dog.weightFactorD, dog.ageFactorD, dog.puppyFactor, dog.puppyPortionFactor, dog.adultPortionFactorD);
+      listOfObjectsD.add(dog.animalsList.get(0));
+      listOfObjectsD.add(dog.animalsList.get(3));
       cat.fodderCounter(cat.nameC, i+1, cat.weightFactorC, cat.ageFactorC, cat.kittyFactor, cat.kittyPortionFactor, cat.adultPortionFactorC);
-      dog.printer();
-      cat.printer();
-      System.out.println();
-      
-      listOfObjectsD[i] = dog.animalsList;
-      listOfObjectsC[i] = cat.animalsList;
+      listOfObjectsC.add(cat.animalsList.get(0));
+      listOfObjectsC.add(cat.animalsList.get(3));
 
+      dog.printer(dog.animalsList);
+      cat.printer(cat.animalsList);
+      System.out.println();
       }
-    
+      
+    dog.printer(listOfObjectsD);
+    dog.printer(listOfObjectsC);
 		  /*char havingEntered = scannerEnter();
       if (scannerEnter() == 'c' || scannerEnter() == 'C')
 		  System.out.println(" Enter the value up to: "+ cat.weightFactorC*cat.kittyPortionFactor);
@@ -111,19 +115,16 @@ class SearchInfo
 		  System.out.println(" Enter the value up to: "+ dog.weightFactorD*dog.puppyPortionFactor);*/
   }
 
-	public void printInfo ()
+   
+	/*public void printInfo ()
 	{
-    for (int i = 0; i < quantityObjects; i++)
+      System.out.print("Info about dog: ");
+    for (int i = 0; i < listOfObjectsD.size(); i++)
     {
-      
-      for (int j = 0; j < listOfObjects; j++)
-      {
-        
-
-      System.out.println("Info about dog: "+listOfObjectsD[i]);
-      }
+      System.out.print(listOfObjectsD.get(i)+"\t");
+      System.out.println();
     }
-	}
+	}*/
 }
 
 
@@ -133,7 +134,7 @@ class laba2
 	{
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
-    info.printInfo();
+    //info.printInfo();
     /*for (int i = 0; i < 100; i++) {
    
       Dog dog = new Dog();
