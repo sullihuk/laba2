@@ -74,8 +74,9 @@ class Cat extends Dog implements Animal
 class SearchInfo
 {
   int quantityObjects = 100;
-	double[] portionsFodderD,  portionsFodderC = new double[quantityObjects];
 	double maxPortionG = 0;
+  ArrayList[] listOfObjectsD = new ArrayList[quantityObjects];
+  ArrayList[] listOfObjectsC = new ArrayList[quantityObjects];
   
 	public char scannerEnter()
 	{
@@ -87,7 +88,7 @@ class SearchInfo
 
 	public void groupOfObjects()//        double maxPortionG   добавить как параметр
 	{
-    for (int i = 0; i < portionsFodderD.length; i++) {
+    for (int i = 0; i < quantityObjects; i++) {
    
       Dog dog = new Dog();
       Cat cat = new Cat();
@@ -97,9 +98,10 @@ class SearchInfo
       dog.printer();
       cat.printer();
       System.out.println();
+      
+      listOfObjectsD[i] = dog.animalsList;
+      listOfObjectsC[i] = cat.animalsList;
 
-      portionsFodderD[i]= dog.quantityFodder;
-      portionsFodderC[i]= cat.quantityFodder;
       }
     
 		  /*char havingEntered = scannerEnter();
@@ -109,14 +111,19 @@ class SearchInfo
 		  System.out.println(" Enter the value up to: "+ dog.weightFactorD*dog.puppyPortionFactor);*/
   }
 
-	public void printInfo (double maxPortionG)
+	public void printInfo ()
 	{
-    /*for (int i = 0; i < portionsFodder.length; i++)
+    for (int i = 0; i < quantityObjects; i++)
     {
-      System.out.println("Info about dog: "+info);
-    }*/
-	}
+      
+      for (int j = 0; j < listOfObjects; j++)
+      {
+        
 
+      System.out.println("Info about dog: "+listOfObjectsD[i]);
+      }
+    }
+	}
 }
 
 
@@ -126,6 +133,7 @@ class laba2
 	{
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
+    info.printInfo();
     /*for (int i = 0; i < 100; i++) {
    
       Dog dog = new Dog();
