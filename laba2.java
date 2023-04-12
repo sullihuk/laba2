@@ -75,19 +75,45 @@ class SearchInfo
 {
   int quantityObjects = 100;
 	double maxPortionG = 0;
-  ArrayList<Object> listOfObjectsD = new ArrayList<Object>();
-  ArrayList<Object> listOfObjectsC = new ArrayList<Object>();
+  ArrayList<Object> listOfObjectsD = new ArrayList<>();
+  ArrayList<Object> listOfObjectsC = new ArrayList<>();
   
   Dog dog = new Dog();
-	public char scannerEnter()
+  Cat cat = new Cat();
+
+	public char scannerChoice()
 	{
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
 		Scanner input = new Scanner(System.in);
-		char oneOfthree = input.next().charAt(0);
-		return oneOfthree;
+		char oneOfAnimals = input.next().charAt(0);
+		return oneOfAnimals;
 	}
 
-	public void groupOfObjects()//        double maxPortionG   добавить как параметр
+	public char scannerValue()
+	{
+		System.out.println(" Julia please enter desired value of fodder: ");
+		Scanner input = new Scanner(System.in);
+		double fodderQuantity = input.next().nextDouble(0);
+		return fodderQuantity;
+	}
+
+	public void printerInfo(ArrayList list, double fodderQuantity, char choice)
+	{
+    NumberFormat form = NumberFormat.getInstance();
+
+    for(int i = 0; i < list.size(); i++)
+    {
+      if (i%2 == 0)
+        System.out.print(list.get(i) + "\t");
+      else {
+        form.setMaximumFractionDigits(3);
+        System.out.print(form.format(list.get(i)) + "\t\t");
+        System.out.println();
+      }
+    }
+  }
+    
+	public void groupOfObjects()
 	{
     for (int i = 0; i < quantityObjects; i++) {
    
@@ -106,25 +132,12 @@ class SearchInfo
       System.out.println();
       }
       
-    dog.printer(listOfObjectsD);
-    dog.printer(listOfObjectsC);
 		  /*char havingEntered = scannerEnter();
       if (scannerEnter() == 'c' || scannerEnter() == 'C')
 		  System.out.println(" Enter the value up to: "+ cat.weightFactorC*cat.kittyPortionFactor);
       if (scannerEnter() == 'd' || scannerEnter() == 'D')
 		  System.out.println(" Enter the value up to: "+ dog.weightFactorD*dog.puppyPortionFactor);*/
   }
-
-   
-	/*public void printInfo ()
-	{
-      System.out.print("Info about dog: ");
-    for (int i = 0; i < listOfObjectsD.size(); i++)
-    {
-      System.out.print(listOfObjectsD.get(i)+"\t");
-      System.out.println();
-    }
-	}*/
 }
 
 
@@ -134,7 +147,8 @@ class laba2
 	{
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
-    //info.printInfo();
+    info.printerInfo(info.listOfObjectsD);
+    info.printerInfo(info.listOfObjectsC);
     /*for (int i = 0; i < 100; i++) {
    
       Dog dog = new Dog();
