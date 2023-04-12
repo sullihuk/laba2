@@ -5,7 +5,6 @@ import java.util.*;
 
 interface Animal // Инициализация интерфейса 
 {
-
 	void printer(ArrayList list);
   void fodderCounter(String name, int number, int weightFactor, int ageFactor, double youngFactor, double  youngPortionFactor, double adultPortionFactor);
  }
@@ -85,19 +84,29 @@ class SearchInfo
 	{
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
 		Scanner input = new Scanner(System.in);
-		char oneOfAnimals = input.next().charAt(0);
+    char oneOfAnimals = input.next().charAt(0);
+    while (oneOfAnimals != 'c' || oneOfAnimals   != 'C') {
+      input.next().charAt(0);
+    }
 		return oneOfAnimals;
 	}
 
-	public char scannerValue()
+	public double scannerValue(char choice)
 	{
-		System.out.println(" Julia please enter desired value of fodder: ");
-		Scanner input = new Scanner(System.in);
-		double fodderQuantity = input.next().nextDouble(0);
+    if (choice == 'c' || choice == 'C')
+		  System.out.println(" Julia please enter desired value of fodder for"+cat.name.substring(0,2)+": ");
+    if (choice == 'd' || choice == 'D')
+      System.out.println(" Julia please enter desired value of fodder for"+dog.name.substring(0,2)+": ");
+		Scanner inputV = new Scanner(System.in);
+    while (inputV.getClass().getName() != "Double" && (inputV < dog.puppyPortionFactor * 0.1 || inputV > dog.puppyPortionFactor * dog.weightFactorD)) // Условие ввода значения пользователем. Здесь подразумевается, что минимальная порция это - порция щенка уменьшенная в десять раз.
+    {
+      System.out.println(" Julia please enter a correct value of fodder for"+dog.name.substring(0,2)+": ");
+		  double fodderQuantity = inputV.nextDouble();
+    }
 		return fodderQuantity;
 	}
 
-	public void printerInfo(ArrayList list, double fodderQuantity, char choice)
+	public void printerInfo(ArrayList list, double fodderQuantity)
 	{
     NumberFormat form = NumberFormat.getInstance();
 
