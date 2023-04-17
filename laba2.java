@@ -47,9 +47,9 @@ class Dog implements Animal
 	{
     NumberFormat form = NumberFormat.getInstance();
 
+    System.out.print(name + number + "\t");
     for(int i = 0; i < list.length; i++)
     {
-      System.out.print(name + number+1 + "\t");
       if (i == 0 || i == 1) {
         form.setMaximumFractionDigits(1);
         System.out.print(form.format(list[i]) + "\t");
@@ -76,8 +76,8 @@ class SearchInfo
 {
   int quantityObjects = 100;
 	double maxPortionG = 0;
-  double[] listOfObjectsD = new double[quantityObjects];
-  double[] listOfObjectsC = new double[quantityObjects];
+  HashMap<int, double> listOfObjectsD = new HashMap<>();
+  HashMap<int, double> listOfObjectsC = new HashMap<>();
   
   Dog dog = new Dog();
   Cat cat = new Cat();
@@ -87,45 +87,43 @@ class SearchInfo
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
 		Scanner input = new Scanner(System.in);
     char oneOfAnimals = input.next().charAt(0);
-    while (oneOfAnimals != 'c' || oneOfAnimals   != 'C') {
+    while (oneOfAnimals != 'c' || oneOfAnimals   != 'C' || oneOfAnimals != 'd' || oneOfAnimals != 'D') {
       input.next().charAt(0);
+      oneOfAnimals = input.next().charAt(0);
     }
 		return oneOfAnimals;
 	}
 
 	public double scannerValue(char choice)
 	{
+		Scanner inputV = new Scanner(System.in);
+		double fodderQuantity = inputV.nextDouble(); 
     if (choice == 'c' || choice == 'C')
 		  System.out.println(" Julia please enter desired value of fodder for"+cat.name.substring(0,2)+": ");
-		Scanner inputV = new Scanner(System.in);
-		double fodderQuantity = inputV.nextDouble();
     if (choice == 'd' || choice == 'D'){
-      System.out.println(" Julia please enter desired value of fodder for"+dog.name.substring(0,2)+": ");
+      System.out.println(" Julia please enter desired value of fodder for"+dog.name.substring(0,2)+ "from "+ dog.adultPortionFactorD*0.1+"up to " + dog.puppyPortionFactor*dog.weightFactorD+ ": ");
+		  fodderQuantity = inputV.nextDouble();
       while (Double.valueOf(fodderQuantity).getClass().getName() != "Double" && (fodderQuantity < dog.puppyPortionFactor * 0.1 || fodderQuantity > dog.puppyPortionFactor * dog.weightFactorD)) // Условие ввода значения пользователем. Здесь подразумевается, что минимальная порция это - порция щенка уменьшенная в десять раз.
-    {
-      System.out.println(" Julia please enter a correct value of fodder for"+dog.name.substring(0,2)+": ");
-      fodderQuantity = inputV.nextDouble();
-    }
-		fodderQuantity = inputV.nextDouble();
+      {
+        System.out.println(" Julia please enter a correct value of fodder for"+dog.name.substring(0,2)+": ");
+        fodderQuantity = inputV.nextDouble();
+      }
     }
 		return fodderQuantity;
 	}
 
-	public void printerInfo(double[] list, double fodderQuantity)
+	public void printerInfo(String name, HashMap list, double fodderQuantity)
 	{
     NumberFormat form = NumberFormat.getInstance();
 
-    for(int i = 0; i < list.length; i++)
+    for(Map.Entry<Integer, Double> e : list.entrySet())
     {
-      if (i%2 == 0)
-        System.out.print(list[i] + "\t");
-      else {
         form.setMaximumFractionDigits(3);
-        System.out.print(form.format(list[i]) + "\t\t");
+        System.out.print(name + e.getKey() + "\t" + form.format(e.getValue()) + "\t\t");
         System.out.println();
       }
     }
-  }
+  
     
 	public void groupOfObjects()
 	{
@@ -135,14 +133,12 @@ class SearchInfo
       Cat cat = new Cat();
 
       dog.fodderCounter(dog.weightFactorD, dog.ageFactorD, dog.puppyFactor, dog.puppyPortionFactor, dog.adultPortionFactorD);
-      listOfObjectsD[i]=dog.animalsList[x];
-      listOfObjectsD[i]=dog.animalsList[2];
+      listOfObjectsD.put(i, dog.animalsList[2]);
       cat.fodderCounter(cat.weightFactorC, cat.ageFactorC, cat.kittyFactor, cat.kittyPortionFactor, cat.adultPortionFactorC);
-      listOfObjectsC[i]=cat.animalsList[2];
-      listOfObjectsC[i]=cat.animalsList[2];
+      listOfObjectsC.put(i, cat.animalsList[2]);
 
       dog.printer(dog.animalsList, dog.name, i+1);
-      //cat.printer(cat.animalsList, cat.nameC, i+1);
+      cat.printer(cat.animalsList, cat.nameC, i+1);
       System.out.println();
       }
       
@@ -161,9 +157,6 @@ class laba2
 	{
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
-    char choice = info.scannerChoice();
-    info.printerInfo(info.listOfObjectsD, choice);
-    info.printerInfo(info.listOfObjectsC, choice);
     /*for (int i = 0; i < 100; i++) {
    
       Dog dog = new Dog();
