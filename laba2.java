@@ -81,6 +81,12 @@ class SearchInfo
   Dog dog = new Dog();
   Cat cat = new Cat();
 
+  double minPortionD = dog.adultPortionFactorD*0.1;
+  double maxPortionD = dog.puppyPortionFactor*dog.weightFactorD;
+
+  double minPortionC = cat.adultPortionFactorC*0.1;
+  double maxPortionC = cat.kittyPortionFactor*cat.weightFactorC;
+    
 	public char scannerChoice()
 	{
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
@@ -91,29 +97,23 @@ class SearchInfo
 		return oneOfAnimals;
 	}
 
-	public double scannerValue(char choice)
+	public double scannerValue(double maxPortion, double minPortion)
 	{
 		System.out.println(" Julia please enter desired value of fodder: ");
 		Scanner input = new Scanner(System.in);
 		String fodderQuantity = input.nextLine();
     fodderQuantity = fodderQuantity.trim();  
 
-    if (choice == 'd' || choice == 'D') {
-      while (!fodderQuantity.matches("-?\\d+(\\.\\d+)?") || fodderQuantity == null || fodderQuantity.isEmpty()) {
-        System.out.println(" Julia, please enter the value from " + dog.adultPortionFactorD*0.1 + " to " + dog.puppyPortionFactor*dog.weightFactorD +" :");
+      while (fodderQuantity == null || fodderQuantity.isEmpty()) {
+        System.out.println(" Julia, please enter the value from " + minPortion + " to " + maxPortion  +":");
         fodderQuantity = input.nextLine();
+        fodderQuantity = fodderQuantity.trim();  
       }
 
-      double inputAsDouble = Double.parseDouble(fodderQuantity);
-        if (inputAsDouble <dog.adultPortionFactorD*0.1 || inputAsDouble > dog.puppyPortionFactor*dog.weightFactorD ) {
-          System.out.println(" Julia the entered value must be between " + dog.adultPortionFactorD*0.1 + " and " + dog.puppyPortionFactor*dog.weightFactorD +":");
-        }else{ 
-          inputAsDouble;
-          } 
-        }
-      }
+    return Double.valueOf(fodderQuantity).doubleValue();
+  }
 
-	public void printerInfo(ArrayList list, double fodderQuantity)
+	public void printerInfo(ArrayList list)
 	{
     NumberFormat form = NumberFormat.getInstance();
 
@@ -164,7 +164,7 @@ class laba2
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
     info.printerInfo(info.listOfObjectsD);
-    info.printerInfo(info.listOfObjectsC);
+    //info.printerInfo(info.listOfObjectsC);
     /*for (int i = 0; i < 100; i++) {
    
       Dog dog = new Dog();
