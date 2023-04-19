@@ -95,13 +95,23 @@ class SearchInfo
 	{
 		System.out.println(" Julia please enter desired value of fodder: ");
 		Scanner input = new Scanner(System.in);
-		double fodderQuantity = input.nextDouble();
-    if (choice == 'd' || choice == 'D')
-      while (!(fodderQuantity instanceof Double) || fodderQuantity <dog.adultPortionFactorD*0.1 || fodderQuantity > dog.puppyPortionFactor*dog.weightFactorD )  
-        fodderQuantity = input.nextDouble();
+		String fodderQuantity = input.nextLine();
+    fodderQuantity = fodderQuantity.trim();  
 
-		return fodderQuantity;
-	}
+    if (choice == 'd' || choice == 'D') {
+      while (!fodderQuantity.matches("-?\\d+(\\.\\d+)?") || fodderQuantity == null || fodderQuantity.isEmpty()) {
+        System.out.println(" Julia, please enter the value from " + dog.adultPortionFactorD*0.1 + " to " + dog.puppyPortionFactor*dog.weightFactorD +" :");
+        fodderQuantity = input.nextLine();
+      }
+
+      double inputAsDouble = Double.parseDouble(fodderQuantity);
+        if (inputAsDouble <dog.adultPortionFactorD*0.1 || inputAsDouble > dog.puppyPortionFactor*dog.weightFactorD ) {
+          System.out.println(" Julia the entered value must be between " + dog.adultPortionFactorD*0.1 + " and " + dog.puppyPortionFactor*dog.weightFactorD +":");
+        }else{ 
+          inputAsDouble;
+          } 
+        }
+      }
 
 	public void printerInfo(ArrayList list, double fodderQuantity)
 	{
