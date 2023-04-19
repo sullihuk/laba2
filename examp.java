@@ -8,25 +8,28 @@ class examp
 {
 	public static void main(String[] args)
 	{
-    char choice = 'd';
-		System.out.println(" Julia please enter desired value of fodder: ");
 		Scanner input = new Scanner(System.in);
-		String fodderQuantity = input.nextLine();
-    fodderQuantity = fodderQuantity.trim();  
-
-    if (choice == 'd' || choice == 'D') {
-      while (!fodderQuantity.matches("-?\\d+(\\.\\d+)?") || fodderQuantity == null || fodderQuantity.isEmpty()) {
-        System.out.println(" Julia, please enter the value from ");
+		System.out.println(" Julia please enter desired value of fodder: ");
+		double fodderQuantity = input.nextDouble();
+    
+    while (fodderQuantity == null || fodderQuantity.isEmpty()) {
+        System.out.println(" Julia, please enter something: ");
         fodderQuantity = input.nextLine();
-
       }
-      double inputAsDouble = Double.parseDouble(fodderQuantity);
-        while (inputAsDouble < 0.1 || inputAsDouble > 35.0) {
+    fodderQuantity = fodderQuantity.trim();  
+    if (!fodderQuantity.matches("-?\\d+(\\.\\d+)?"))
+    {
+        fodderQuantity = input.nextLine();
+      return;
+    }
+
+    double inputAsDouble = Double.parseDouble(fodderQuantity);
+    if (inputAsDouble < 0.1 || inputAsDouble > 35.0) {
           System.out.println(" Julia the entered value must be between 0.1 and 35:");
            System.out.println(inputAsDouble);
-          } 
+    } 
         
-      }
   }
+  
 }
 
