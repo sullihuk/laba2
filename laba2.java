@@ -87,13 +87,18 @@ class SearchInfo
   double minPortionC = cat.adultPortionFactorC*0.1;
   double maxPortionC = cat.kittyPortionFactor*cat.weightFactorC;
     
-	public char scannerChoice()
+	public String scannerChoice()
 	{
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
 		Scanner input = new Scanner(System.in);
-		char oneOfAnimals = input.next().charAt(0);
-    while (oneOfAnimals != 'c' || oneOfAnimals != 'd' || oneOfAnimals != 'C' || oneOfAnimals != 'D') 
-      oneOfAnimals = input.next().charAt(0);
+		String oneOfAnimals = input.nextLine();
+    oneOfAnimals = oneOfAnimals.trim();  
+    while (oneOfAnimals != "c" || oneOfAnimals != "d" || oneOfAnimals != "C" || oneOfAnimals != "D") 
+    {
+		  System.out.println(" Enter either (D) or (C):\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
+      oneOfAnimals = input.nextLine();
+      oneOfAnimals = oneOfAnimals.trim();  
+    }
 		return oneOfAnimals;
 	}
 
@@ -103,28 +108,34 @@ class SearchInfo
 		Scanner input = new Scanner(System.in);
 		String fodderQuantity = input.nextLine();
     fodderQuantity = fodderQuantity.trim();  
-
-      while (fodderQuantity == null || fodderQuantity.isEmpty()) {
+    double truValue = Double.valueOf(fodderQuantity).doubleValue();
+    
+      while (fodderQuantity == null || fodderQuantity.isEmpty() || truValue < minPortion || truValue > maxPortion) {
         System.out.println(" Julia, please enter the value from " + minPortion + " to " + maxPortion  +":");
         fodderQuantity = input.nextLine();
         fodderQuantity = fodderQuantity.trim();  
+        truValue = Double.valueOf(fodderQuantity).doubleValue();
       }
 
-    return Double.valueOf(fodderQuantity).doubleValue();
+    return  truValue;
   }
 
-	public void printerInfo(ArrayList list)
+	public void printerInfo(ArrayList list, double enteredValue)
 	{
     NumberFormat form = NumberFormat.getInstance();
 
     for(int i = 0; i < list.size(); i++)
     {
-      if (i%2 == 0)
-        System.out.print(list.get(i) + "\t");
-      else {
-        form.setMaximumFractionDigits(3);
-        System.out.print(form.format(list.get(i)) + "\t\t");
-        System.out.println();
+      if (i%2 == 1){
+      String givenValue = list.get(i).toString();
+      double objValue = Double.valueOf(givenValue).doubleValue();
+      
+        if (objValue <= enteredValue){
+            System.out.print(list.get(i-1) + "\t");
+            form.setMaximumFractionDigits(3);
+            System.out.print(form.format(list.get(i)) + "\t\t");
+            System.out.println();
+        }
       }
     }
   }
@@ -146,13 +157,7 @@ class SearchInfo
       dog.printer(dog.animalsList);
       cat.printer(cat.animalsList);
       System.out.println();
-      }
-      
-		  /*char havingEntered = scannerEnter();
-      if (scannerEnter() == 'c' || scannerEnter() == 'C')
-		  System.out.println(" Enter the value up to: "+ cat.weightFactorC*cat.kittyPortionFactor);
-      if (scannerEnter() == 'd' || scannerEnter() == 'D')
-		  System.out.println(" Enter the value up to: "+ dog.weightFactorD*dog.puppyPortionFactor);*/
+    }
   }
 }
 
@@ -163,7 +168,8 @@ class laba2
 	{
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
-    info.printerInfo(info.listOfObjectsD);
+    info.scannerChoice();
+    //info.printerInfo(info.listOfObjectsD);
     //info.printerInfo(info.listOfObjectsC);
     /*for (int i = 0; i < 100; i++) {
    
