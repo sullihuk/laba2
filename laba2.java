@@ -74,7 +74,7 @@ class Cat extends Dog implements Animal
 class SearchInfo
 {
   int quantityObjects = 100;
-	double maxPortionG = 0;
+
   ArrayList<Object> listOfObjectsD = new ArrayList<>();
   ArrayList<Object> listOfObjectsC = new ArrayList<>();
   
@@ -93,7 +93,8 @@ class SearchInfo
 		Scanner input = new Scanner(System.in);
 		String oneOfAnimals = input.nextLine();
     oneOfAnimals = oneOfAnimals.trim();  
-    while (oneOfAnimals != "c" || oneOfAnimals != "d" || oneOfAnimals != "C" || oneOfAnimals != "D") 
+
+    while (!oneOfAnimals.equalsIgnoreCase("d") && !oneOfAnimals.equalsIgnoreCase("c")) 
     {
 		  System.out.println(" Enter either (D) or (C):\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
       oneOfAnimals = input.nextLine();
@@ -102,21 +103,33 @@ class SearchInfo
 		return oneOfAnimals;
 	}
 
-	public double scannerValue(double maxPortion, double minPortion)
+	public double scannerValue(double maxPortion, double minPortion, String name)
 	{
-		System.out.println(" Julia please enter desired value of fodder: ");
-		Scanner input = new Scanner(System.in);
-		String fodderQuantity = input.nextLine();
-    fodderQuantity = fodderQuantity.trim();  
-    double truValue = Double.valueOf(fodderQuantity).doubleValue();
+    NumberFormat form = NumberFormat.getInstance();
+    form.setMaximumFractionDigits(3);
     
-      while (fodderQuantity == null || fodderQuantity.isEmpty() || truValue < minPortion || truValue > maxPortion) {
-        System.out.println(" Julia, please enter the value from " + minPortion + " to " + maxPortion  +":");
-        fodderQuantity = input.nextLine();
-        fodderQuantity = fodderQuantity.trim();  
-        truValue = Double.valueOf(fodderQuantity).doubleValue();
-      }
+    double truValue; 
+		String fodderQuantity;
 
+		System.out.println(" Julia please enter a desired value of fodder for "+name.substring(0,3)+"s.\n Julia, the value must be from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":");
+		Scanner input = new Scanner(System.in);
+    do {
+      
+      System.out.println(" Julia, please enter the value from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":");
+
+      fodderQuantity = input.nextLine();
+      fodderQuantity = fodderQuantity.trim();  
+        while(fodderQuantity == null || fodderQuantity.isEmpty()) {
+          System.out.println(" Julia, the value can't be empty, try again:");
+          fodderQuantity = input.nextLine();
+          fodderQuantity = fodderQuantity.trim();  
+        }
+
+      truValue = Double.valueOf(fodderQuantity).doubleValue();
+
+    } 
+    while (truValue < minPortion || truValue > maxPortion); 
+      
     return  truValue;
   }
 
@@ -166,21 +179,17 @@ class laba2
 {
 	public static void main(String[] args)
 	{
+    Dog dog = new Dog();
+    Cat cat = new Cat();
+
     SearchInfo info = new SearchInfo();
     info.groupOfObjects();
-    info.scannerChoice();
-    //info.printerInfo(info.listOfObjectsD);
-    //info.printerInfo(info.listOfObjectsC);
-    /*for (int i = 0; i < 100; i++) {
-   
-      Dog dog = new Dog();
-      Cat cat = new Cat();
+    if (info.scannerChoice().equalsIgnoreCase("d"))
+      info.printerInfo (info.listOfObjectsD,  info.scannerValue(info.maxPortionD, info.minPortionD, dog.name));
+      else 
+      info.printerInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.name));
 
-      dog.fodderCounter(dog.name, i+1, dog.weightFactorD, dog.ageFactorD, dog.puppyFactor, dog.puppyPortionFactor, dog.adultPortionFactorD);
-      cat.fodderCounter(cat.nameC, i+1, cat.weightFactorC, cat.ageFactorC, cat.kittyFactor, cat.kittyPortionFactor, cat.adultPortionFactorC );
-      dog.printer();
-      cat.printer();
-      System.out.println();
-    }*/
+      //info.scannerChoice().equalsIgnoreCase("d") ? info.printInfo (info.listOfObjectsD,  info.scannerValue(info.maxPortionD, info.minPortionD, dog.name)): info.printInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.name));
+ //Тернарный оператор для расчета количества корма для щенка/котенка или взрослой особи 
 	}
 }
