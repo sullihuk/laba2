@@ -125,6 +125,7 @@ class SearchInfo
           fodderQuantity = fodderQuantity.trim();  
         }
 
+        
       truValue = Double.valueOf(fodderQuantity).doubleValue();
 
     } 
