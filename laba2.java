@@ -103,7 +103,7 @@ class SearchInfo
 		return oneOfAnimals;
 	}
 
-	public double scannerValue(double maxPortion, double minPortion, String name)
+	/*public double scannerValue(double maxPortion, double minPortion, String name)
 	{
     NumberFormat form = NumberFormat.getInstance();
     form.setMaximumFractionDigits(3);
@@ -119,7 +119,7 @@ class SearchInfo
 
       fodderQuantity = input.nextLine();
       fodderQuantity = fodderQuantity.trim();  
-        while(fodderQuantity == null || fodderQuantity.isEmpty()) {
+        while(fodderQuantity == null || fodderQuantity.isEmpty() && !(Double.valueOf(fodderQuantity).doubleValue()) {
           System.out.println(" Julia, the value can't be empty, try again:");
           fodderQuantity = input.nextLine();
           fodderQuantity = fodderQuantity.trim();  
@@ -132,6 +132,44 @@ class SearchInfo
     while (truValue < minPortion || truValue > maxPortion); 
       
     return  truValue;
+  }*/
+
+	public double scannerValue(double maxPortion, double minPortion, String name)
+	{
+    NumberFormat form = NumberFormat.getInstance();
+    form.setMaximumFractionDigits(3);
+    
+		Scanner input = new Scanner(System.in);
+    double truValue = 0; 
+    boolean validInput;
+		//String fodderQuantity;
+
+    do {
+      
+		  System.out.println(" Julia please enter a desired value of fodder for "+name.substring(0,3)+"s.\n Julia, the value must be from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":");
+
+      if(input.hasNextDouble()) 
+      {
+        truValue = input.nextDouble();
+        
+          if(truValue > minPortion && truValue < maxPortion) 
+          {
+            validInput = true;
+          }else 
+          {
+            System.out.println(" Julia, the value must be in the given range, try again:");
+            validInput = false;
+          }
+      }else 
+      {
+        System.out.println(" Julia, the value must be in the given range, try again:");
+        input.next();
+        validInput = false;
+      }
+    } 
+    while (!validInput); 
+
+    return truValue;
   }
 
 	public void printerInfo(ArrayList list, double enteredValue)
