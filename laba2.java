@@ -6,8 +6,8 @@ import java.util.*;
 interface Animal // Инициализация интерфейса 
 {
 
-	void printer(ArrayList list);
-  void fodderCounter(String name, int number, int weightFactor, int ageFactor, double youngFactor, double  youngPortionFactor, double adultPortionFactor);
+	void printer(ArrayList list);// Инициализация метода выводящего информацию о животном
+  void fodderCounter(String name, int number, int weightFactor, int ageFactor, double youngFactor, double  youngPortionFactor, double adultPortionFactor);// Инициализация метода расчитывающего количество корма 
  }
 
 class Dog implements Animal
@@ -34,28 +34,30 @@ class Dog implements Animal
       quantityFodder = age <= youngFactor ? weight*youngPortionFactor : weight*adultPortionFactor;//Тернарный оператор для расчета количества корма для щенка/котенка или взрослой особи 
   
 
-      animalsList.add(name+number); 
-      animalsList.add(weight);
-      animalsList.add(age);
-      animalsList.add(quantityFodder);
+      animalsList.add(name+number); // Добавление в массив имени и номера животного 
+      animalsList.add(weight);// Добавление в массив массы животного 
+      animalsList.add(age);// Добавление в массив возраста животного 
+      animalsList.add(quantityFodder);// Добавление в массив расчитанного количества корма животного 
+
     }
 
   @Override
-	public void printer(ArrayList list)
+	public void printer(ArrayList list) // Метод реализует вывод на экран информации о животном
 	{
-    NumberFormat form = NumberFormat.getInstance();
+    NumberFormat form = NumberFormat.getInstance();// Создание перменной для форматирования чисел, без нее переменные типа double выводятся "не кузяво"
 
-    for(int i = 0; i < list.size(); i++)
+    for(int i = 0; i < list.size(); i++) // Итератор пробегает по всем элементам массива содержащего информацию о животном
     {
       if (i == 0){
-        System.out.print(list.get(i) + "\t");
+        System.out.print(list.get(i) + "\t"); // Первым элементом массива идет имя животного, поэтому оно выводится без какого-либо форматирования
       } else if (i != list.size()-1) {
-        form.setMaximumFractionDigits(1);
-        System.out.print(form.format(list.get(i)) + "\t");
+        form.setMaximumFractionDigits(1); // Назначение переменной, отвечающей за округление и количество знаков после запятой        
+        System.out.print(form.format(list.get(i)) + "\t"); // Второй и третий элементы - вес и возраст животных округляются и выводятся с точностью до десятых долей
+
       }
       else {
-        form.setMaximumFractionDigits(3);
-        System.out.print(form.format(list.get(i)) + "\t\t");
+        form.setMaximumFractionDigits(3); // Назначение переменной, отвечающей за округление и количество знаков после запятой
+        System.out.print(form.format(list.get(i)) + "\t\t");// Последний элемент - количество корма выводится с точностью до тысячных
       } 
     }
 	}
@@ -63,113 +65,79 @@ class Dog implements Animal
 
 class Cat extends Dog implements Animal  
 {
-  double kittyFactor = 1;
-  double kittyPortionFactor = 0.017;
-  double adultPortionFactorC = 0.011;
-	int weightFactorC = 20;
-	int ageFactorC = 18;
-	String nameC = "Cat_";
+  double kittyFactor = 1;//Возраст кошкэ, до которого она считается котенком 
+  double kittyPortionFactor = 0.017;// Порция для котеночка на кг веса
+  double adultPortionFactorC = 0.011;// Порция для взрослого кошкэ
+	int weightFactorC = 20;// Максимальный вес кошкэ
+	int ageFactorC = 18;// Максимальный возраст кошкэ
+	String nameC = "Cat_";//Шаблон имени кошкэ
 }
 
-class SearchInfo
+class SearchInfo // Класс содержит методы: создания группы объектов класса; для общения с пользователем; вывод интересующей информации на экран
 {
-  int quantityObjects = 100;
+  int quantityObjects = 100;// Количество создаваемых обЪектов соответствующих классов, по заданию
 
-  ArrayList<Object> listOfObjectsD = new ArrayList<>();
-  ArrayList<Object> listOfObjectsC = new ArrayList<>();
+  ArrayList<Object> listOfObjectsD = new ArrayList<>(); // Инициализация списка собак с расчитанным количеством корма для них
+  ArrayList<Object> listOfObjectsC = new ArrayList<>();// Инициализация списка кошкэ с расчитанным количеством корма для них
   
-  Dog dog = new Dog();
-  Cat cat = new Cat();
+  Dog dog = new Dog();//Создание вспомогательного экземпляра класса для пёсов
+  Cat cat = new Cat();//Создание вспомогательного экземпляра класса для кошкэ 
 
-  double minPortionD = dog.adultPortionFactorD*0.1;
-  double maxPortionD = dog.puppyPortionFactor*dog.weightFactorD;
-
-  double minPortionC = cat.adultPortionFactorC*0.1;
-  double maxPortionC = cat.kittyPortionFactor*cat.weightFactorC;
+  double minPortionD = dog.adultPortionFactorD;// Назначение переменной минимальной порции для собакентиев
+  double maxPortionD = dog.puppyPortionFactor*dog.weightFactorD*0.5;// Назначение переменной минимальной порции для собакентиев
+  double minPortionC = cat.adultPortionFactorC*0.4;// Назначение переменной минимальной порции для кошкэ
+  double maxPortionC = cat.kittyPortionFactor*cat.weightFactorC*0.7;// Назначение переменной максимальной порции для кошкэ
     
-	public String scannerChoice()
+	public String scannerChoice() // Метод для выбора разновидности животного, для которого будет выводится информация
 	{
-		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
-		Scanner input = new Scanner(System.in);
-		String oneOfAnimals = input.nextLine();
-    oneOfAnimals = oneOfAnimals.trim();  
+		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n"); 
+		Scanner input = new Scanner(System.in);// Инициализация переменной для ввода пользователем
+		String oneOfAnimals = input.nextLine();// Назначение переменной для ввода
+    oneOfAnimals = oneOfAnimals.trim();  // Переменная переназначается в саму себя но с обрезкой, т.н. "белых символов"
 
-    while (!oneOfAnimals.equalsIgnoreCase("d") && !oneOfAnimals.equalsIgnoreCase("c")) 
+    while (!oneOfAnimals.equalsIgnoreCase("d") && !oneOfAnimals.equalsIgnoreCase("c"))// Цикл будет просить пользователя ввести "d" или "с", для выбора собак или кошек соответсвенно 
     {
 		  System.out.println(" Enter either (D) or (C):\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n");
       oneOfAnimals = input.nextLine();
       oneOfAnimals = oneOfAnimals.trim();  
     }
-		return oneOfAnimals;
+		return oneOfAnimals;//Метод возвращает выбранное пользователем значение
 	}
 
-	/*public double scannerValue(double maxPortion, double minPortion, String name)
+
+	public double scannerValue(double maxPortion, double minPortion, String name)// Метод просит пользователя ввести значение в заданном диапазоне. Параметрами являются максимальная, минимальная порции, а также имя (здесь просто тип) животного. При вызове метода будут использоваться соответствующие значения для собак и кошек
 	{
-    NumberFormat form = NumberFormat.getInstance();
-    form.setMaximumFractionDigits(3);
-    
-    double truValue; 
-		String fodderQuantity;
-
-		System.out.println(" Julia please enter a desired value of fodder for "+name.substring(0,3)+"s.\n Julia, the value must be from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":");
-		Scanner input = new Scanner(System.in);
-    do {
-      
-      System.out.println(" Julia, please enter the value from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":");
-
-      fodderQuantity = input.nextLine();
-      fodderQuantity = fodderQuantity.trim();  
-        while(fodderQuantity == null || fodderQuantity.isEmpty() && !(Double.valueOf(fodderQuantity).doubleValue()) {
-          System.out.println(" Julia, the value can't be empty, try again:");
-          fodderQuantity = input.nextLine();
-          fodderQuantity = fodderQuantity.trim();  
-        }
-
-        
-      truValue = Double.valueOf(fodderQuantity).doubleValue();
-
-    } 
-    while (truValue < minPortion || truValue > maxPortion); 
-      
-    return  truValue;
-  }*/
-
-	public double scannerValue(double maxPortion, double minPortion, String name)
-	{
-    NumberFormat form = NumberFormat.getInstance();
-    form.setMaximumFractionDigits(3);
+    NumberFormat form = NumberFormat.getInstance();// Создание перменной для форматирования чисел, без нее переменные типа double выводятся "не кузяво"
+    form.setMaximumFractionDigits(3);// Т.к. значение корма выводится в тысячных устанавливается значение 3 знака после запятой
     
 		Scanner input = new Scanner(System.in);
-    double truValue = 0; 
-    boolean validInput;
-		//String fodderQuantity;
+    double truValue = 0; // Инициализируется и назначается возвращаемое методом значение 
+    boolean validInput;// Инициализируется вспомогательная логическая переменная для поддержания бесконечности цикла ниже
 
-    do {
-      
-		  System.out.println(" Julia please enter a desired value of fodder for "+name.substring(0,3)+"s.\n Julia, the value must be from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":");
+		  System.out.println(" Julia please enter a desired value of fodder for "+name.substring(0,3)+"s.\n Julia, the value must be from " + form.format(minPortion) + " to " + form.format(maxPortion)  +":"); // Выражение просит ввести пользователя число в заданном диапазоне 
 
-      if(input.hasNextDouble()) 
+    do { // Цикл просит пользователя ввести число в заданном диапазоне. Архитектура цикла подсказана ChatGPT, т.к. самостоятельные попытки его написать не увенчались успехом
+
+      if(input.hasNextDouble())// Условный оператор проверяет чтобы введенное значение было числом, если так, то, переменной присваивается это значение и запускается внутренний условный оператор
       {
         truValue = input.nextDouble();
         
-          if(truValue > minPortion && truValue < maxPortion) 
+          if(truValue > minPortion && truValue < maxPortion)//Условный оператор проверяет чтобы присвоенное значение было в заданном диапазоне, если так, то, логической переменной присваивается значение истины... 
           {
             validInput = true;
-          }else 
-          {
+          } else {   //... если нет, то, пользователя просят повторить ввод, а логическая переменная принимает значение ложь
             System.out.println(" Julia, the value must be in the given range, try again:");
             validInput = false;
           }
-      }else 
-      {
+      } else {    // Если введенное значение не является числом, пользователю предлагается повторить ввод
         System.out.println(" Julia, the value must be in the given range, try again:");
         input.next();
         validInput = false;
       }
     } 
-    while (!validInput); 
+    while (!validInput);// До тех пор пока логическая переменая не примет значение истина цикл будет запускаться заново 
 
-    return truValue;
+    return truValue;// Как только цикл прекращается, метод возвращает введенное пользователем значение
   }
 
 	public void printerInfo(ArrayList list, double enteredValue)
@@ -182,7 +150,7 @@ class SearchInfo
       String givenValue = list.get(i).toString();
       double objValue = Double.valueOf(givenValue).doubleValue();
       
-        if (objValue <= enteredValue){
+        if (objValue >= enteredValue){
             System.out.print(list.get(i-1) + "\t");
             form.setMaximumFractionDigits(3);
             System.out.print(form.format(list.get(i)) + "\t\t");
@@ -226,9 +194,7 @@ class laba2
     if (info.scannerChoice().equalsIgnoreCase("d"))
       info.printerInfo (info.listOfObjectsD,  info.scannerValue(info.maxPortionD, info.minPortionD, dog.name));
       else 
-      info.printerInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.name));
+      info.printerInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.nameC));
 
-      //info.scannerChoice().equalsIgnoreCase("d") ? info.printInfo (info.listOfObjectsD,  info.scannerValue(info.maxPortionD, info.minPortionD, dog.name)): info.printInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.name));
- //Тернарный оператор для расчета количества корма для щенка/котенка или взрослой особи 
 	}
 }
