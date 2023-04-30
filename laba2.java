@@ -88,6 +88,8 @@ class SearchInfo // Класс содержит методы: создания �
   double minPortionC = cat.adultPortionFactorC*0.4;// Назначение переменной минимальной порции для кошкэ
   double maxPortionC = cat.kittyPortionFactor*cat.weightFactorC*0.7;// Назначение переменной максимальной порции для кошкэ
     
+  NumberFormat form = NumberFormat.getInstance();// Создание перменной для форматирования/округления чисел, без нее переменные типа double выводятся "не кузяво"
+                                                 
 	public String scannerChoice() // Метод для выбора разновидности животного, для которого будет выводится информация
 	{
 		System.out.println(" To see portions of dogs which gobbled up more than others press (D).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n To see portions of cats which gobbled up more than others press (C).\n.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.\n"); 
@@ -107,7 +109,6 @@ class SearchInfo // Класс содержит методы: создания �
 
 	public double scannerValue(double maxPortion, double minPortion, String name)// Метод просит пользователя ввести значение в заданном диапазоне. Параметрами являются максимальная, минимальная порции, а также имя (здесь просто тип) животного. При вызове метода будут использоваться соответствующие значения для собак и кошек
 	{
-    NumberFormat form = NumberFormat.getInstance();// Создание перменной для форматирования чисел, без нее переменные типа double выводятся "не кузяво"
     form.setMaximumFractionDigits(3);// Т.к. значение корма выводится в тысячных устанавливается значение 3 знака после запятой
     
 		Scanner input = new Scanner(System.in);
@@ -140,43 +141,43 @@ class SearchInfo // Класс содержит методы: создания �
     return truValue;// Как только цикл прекращается, метод возвращает введенное пользователем значение
   }
 
-	public void printerInfo(ArrayList list, double enteredValue)
+	public void printerInfo(ArrayList list, double enteredValue) //Метод выводит информацию о тех животных, на которых ушло корма больше, чем то значение количества корма, котoрое ввел пользователь. Параметрами являются: список каких-либо животных, знчение корма, которое ввел пользователь
 	{
-    NumberFormat form = NumberFormat.getInstance();
 
-    for(int i = 0; i < list.size(); i++)
+    for(int i = 0; i < list.size(); i++)//Цикл пробегает по всем элементам полученного на входе массива/списка
     {
-      if (i%2 == 1){
-      String givenValue = list.get(i).toString();
-      double objValue = Double.valueOf(givenValue).doubleValue();
+      if (i%2 == 1){ //Условный оператор заставляет цикл выбирать каждое нечетное значение, которым является значение корма, т.к. массив заполнялся подряд - Имя Кличество корма, Имя2 Количество корма и т.д. Т.е. цикл фактически обрабатывает только значения количества корма
+      String givenValue = list.get(i).toString();// Полученное значение вначале преобразутеся в тип String...
+      double objValue = Double.valueOf(givenValue).doubleValue(); // ... далее в тип Double
       
-        if (objValue >= enteredValue){
-            System.out.print(list.get(i-1) + "\t");
-            form.setMaximumFractionDigits(3);
-            System.out.print(form.format(list.get(i)) + "\t\t");
-            System.out.println();
+        if (objValue >= enteredValue){ // Вложенный условный оператор определяет какие значения пропускать на вывод
+            System.out.print(list.get(i-1) + "\t");//Выводит на экран предыдущее значение i, т.е. соответствующее значению корма имя
+            form.setMaximumFractionDigits(3);// Т.к. значение корма выводится в тысячных устанавливается значение 3 знака после запятой
+            System.out.println(form.format(list.get(i)));//Выводит на экран количество корма
         }
       }
     }
   }
     
-	public void groupOfObjects()
+	public void groupOfObjects()// Метод создает группу объектов классов Dog и Cat
 	{
-    for (int i = 0; i < quantityObjects; i++) {
+    for (int i = 0; i < quantityObjects; i++) { // Цикл создает количество объектов равное классовой переменной
    
-      Dog dog = new Dog();
-      Cat cat = new Cat();
+      Dog dog = new Dog();//Создание объекта класса Dog
+      Cat cat = new Cat();//Создание объекта класса Cat
 
-      dog.fodderCounter(dog.name, i+1, dog.weightFactorD, dog.ageFactorD, dog.puppyFactor, dog.puppyPortionFactor, dog.adultPortionFactorD);
-      listOfObjectsD.add(dog.animalsList.get(0));
-      listOfObjectsD.add(dog.animalsList.get(3));
-      cat.fodderCounter(cat.nameC, i+1, cat.weightFactorC, cat.ageFactorC, cat.kittyFactor, cat.kittyPortionFactor, cat.adultPortionFactorC);
-      listOfObjectsC.add(cat.animalsList.get(0));
-      listOfObjectsC.add(cat.animalsList.get(3));
+      dog.fodderCounter(dog.name, i+1, dog.weightFactorD, dog.ageFactorD, dog.puppyFactor, dog.puppyPortionFactor, dog.adultPortionFactorD); //Вызом метода для расчета количества корма для собакентиев
+      listOfObjectsD.add(dog.animalsList.get(0));//Добавление в список имени отдельной псины
+      listOfObjectsD.add(dog.animalsList.get(3));//Добавление в список количества корма для отдельной псины
 
-      dog.printer(dog.animalsList);
-      cat.printer(cat.animalsList);
-      System.out.println();
+      cat.fodderCounter(cat.nameC, i+1, cat.weightFactorC, cat.ageFactorC, cat.kittyFactor, cat.kittyPortionFactor, cat.adultPortionFactorC);//Вызом метода для расчета количества корма для кошкэ
+      listOfObjectsC.add(cat.animalsList.get(0));//Добавление в список имени отдельной кошкэ
+      listOfObjectsC.add(cat.animalsList.get(3));//Добавление в список количества корма для отдельной кошкэ
+
+
+      dog.printer(dog.animalsList);//Вызов метода выводящего на экран информацию об отдельной псине 
+      cat.printer(cat.animalsList);//Вызов метода выводящего на экран информацию об отдельной кошкэ
+      System.out.println();//Переход на новую строку на каждой итерации цикла
     }
   }
 }
@@ -186,15 +187,15 @@ class laba2
 {
 	public static void main(String[] args)
 	{
-    Dog dog = new Dog();
-    Cat cat = new Cat();
+    Dog dog = new Dog();//Вспомогательный экземпляр класса
+    Cat cat = new Cat();// ----//------
 
-    SearchInfo info = new SearchInfo();
-    info.groupOfObjects();
-    if (info.scannerChoice().equalsIgnoreCase("d"))
-      info.printerInfo (info.listOfObjectsD,  info.scannerValue(info.maxPortionD, info.minPortionD, dog.name));
+    SearchInfo info = new SearchInfo();//Создание экземпляра класса вывода информации на экран
+    info.groupOfObjects();//Вызов классового метода для вывода на экран группы объектов соответствующих классов
+    if (info.scannerChoice().equalsIgnoreCase("d"))//Условный оператор решает для какого типа животного выводить информацию
+      info.printerInfo (info.listOfObjectsD,  info.scannerValue(info.maxPortionD, info.minPortionD, dog.name));//Выводит на экран информации о собаках, сожравших корма больше, введенного пользователем значения
       else 
-      info.printerInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.nameC));
+      info.printerInfo (info.listOfObjectsC,  info.scannerValue(info.maxPortionC, info.minPortionC, cat.nameC));//Выводит на экран информации о кошечках, сожравших корма больше, введенного пользователем значения
 
 	}
 }
